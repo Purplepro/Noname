@@ -9,8 +9,10 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 
 
 
+
 const SECRET_SESSION = process.env.SECRET_SESSION;
 
+const Url_Search =  'https://www.worldcoinindex.com/apiservice/v2getmarkets?api_key={process.env.API_KEY}'
 
 
 app.set('view engine', 'ejs');
@@ -63,4 +65,8 @@ const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);
 });
 
-module.exports = server;
+module.exports =  server;
+
+module.exports = {
+  api_key:process.env.API_KEY
+}
