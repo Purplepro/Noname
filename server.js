@@ -6,13 +6,12 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
-
+const axios = require('axios');
 
 
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 
-const Url_Search =  'https://www.worldcoinindex.com/apiservice/v2getmarkets?api_key={process.env.API_KEY}'
 
 
 app.set('view engine', 'ejs');
@@ -40,9 +39,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -57,7 +53,32 @@ app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile', { id, name, email});
 });
 
+// app.get('/cryptosearch', (req, res) => {
+// const cryptoUrl = `https://api.nomics.com/v1/markets?key=${process.env.API_KEY}`;
+  
+//   axios.get(cryptoUrl)
+//   .then(response => {
+//     console.log(response)
+//   })
+//   .catch(error => {
+//     console.log(error)
+//   })
+//   res.render('Currency/CryptoSearch');
+//   }); 
+
+
+  // app.get('/Mywatchlist', (req, res) => {
+  //   res.render('./Currency/Mywatchlist');
+  // });
+
+
+
+
+
 app.use('/auth', require('./controllers/auth'));
+
+app.use('/Currency', require('./controllers/CryptoCurrency'));
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -67,6 +88,6 @@ const server = app.listen(PORT, () => {
 
 module.exports =  server;
 
-module.exports = {
-  api_key:process.env.API_KEY
-}
+// module.exports = {
+//   API_key:process.env.API_KEY
+// }

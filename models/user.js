@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const {
   Model
 } = require('sequelize');
+const db = require('.');
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -13,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      // models.user.belongsTo(models.Cryptocurrency)
+      models.user.hasMany(models.Cryptocurrency)
       // define association here
     }
   };
